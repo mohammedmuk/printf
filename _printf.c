@@ -1,3 +1,10 @@
+/**
+ * _printf - function return number of string
+ * @format: string
+ *
+ * Return: x
+ */
+
 int _printf(const char *format, ...)
 {
 	int i, x;
