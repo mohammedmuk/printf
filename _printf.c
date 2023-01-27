@@ -1,53 +1,53 @@
 #include <stdarg.h>
-#include <string.h>
 #include <stdio.h>
+#include "main.h"
 
 /**
  * _printf - function return number of string
  * @format: string
  *
- * Return: x
+ * Return: num
  */
 
 int _printf(const char *format, ...)
 {
+	int i, j, num = 0;
 	char *s;
-	int x = 0, i;
 
-	va_list(args);
+	va_list args;
+
 	va_start(args, format);
 
-	for (; *format != '\0'; format++)
+	for (i = 0; format[i] != '\0'; i++)
 	{
-		while (*format != '%' && *format != '\0')
+		if (format[i] == '%' && (format[i + 1] == 's'
+		|| format[i + 1] == 'c' || format[i + 1] == 'd' || format[i + 1] == 'i'))
 		{
-			putchar(*format);
-			x++;
-			format++;
+			if (format[i + 1] == 's')
+			{
+				s = va_arg(args, char *);
+
+				for (j = 0; s[j]; j++)
+				{
+					fprintf(stdout, "%c", s[j]);
+					num++;
+				}
+			}
+
+			if (format[i + 1] == 'c')
+			{
+				fprintf(stdout, "%c", va_arg(args, int));
+			}
 		}
-		while (*format == '%' && *format != '\0')
+
+		else
 		{
-
-		format++;
-
-		switch (*format)
-		{
-			case 'c':
-				  i = va_arg(args, int);
-				  putchar(i);
-				  x++;
-				  break;
-
-			case 's':
-				  s = va_arg(args, char *);
-				  puts(s);
-				  x += strlen(s);
-				  break;
-		}
+			fprintf(stdout, "%c", format[i]);
+			num++;
 		}
 	}
 
 	va_end(args);
 
-	return (x);
-       }
+	return (num);
+}
