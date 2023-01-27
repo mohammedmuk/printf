@@ -1,3 +1,6 @@
+#include <stdarg.h>
+#include <string.h>
+
 /**
  * _printf - function return number of string
  * @format: string
@@ -7,12 +10,39 @@
 
 int _printf(const char *format, ...)
 {
-	int i, x;
+	char *s;
+	int x = 0;
 
-	for (i = 0; format[i] != '\0'; i++)
+	va_list(args);
+	va_start(args, format);
+
+	for (*format != '\0'; format++)
 	{
-		x += 1;
+		while (*format != '%' && *format != '\0')
+		{
+			format++;
+			x++;
+		}
+		while (*format == '%' && *format != '\0')
+		{
+
+		format++;
+
+		switch (*format)
+		{
+			case 'c':
+				  x++;
+				  break;
+
+			case 's':
+				  s = va_arg(args, char *);
+				  x += strlen(s);
+				  break;
+		}
 	}
 
+	va_end(args);
+
 	return (x);
+}
 }
