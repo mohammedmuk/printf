@@ -1,5 +1,6 @@
 #include "main.h"
 #include <stdio.h>
+#include <math.h>
 #include <stdarg.h>
 /**
  * print_str - do the smae thing like printf fucntion
