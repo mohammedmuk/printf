@@ -58,8 +58,7 @@ int print_num(int num)
 int _printf(const char *format, ...)
 {
 	va_list valist;
-	int i = 0, j, length = 0;
-	char *str;
+	int i = 0, length = 0;
 
 	if (!format || (format[0] == '%' && format[1] == '\0') ||
 			format == NULL || format == 0)
